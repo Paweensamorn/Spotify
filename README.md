@@ -34,24 +34,24 @@
 
 ## 4. พจนานุกรมข้อมูล (Data Dictionary) ของ `spotify_clean.csv`
 
-| คอลัมน์ | ชื่อคอลัมน์เดิม | ชนิดข้อมูล | คำอธิบาย / ค่าที่เป็นไปได้ | ค่าว่าง |
-| --- | --- | --- | --- | ---: |
-| `artist_name` | Artist Name | ข้อความ | ชื่อศิลปิน ไม่ซ้ำกันทั้ง 500 แถว | 0 |
-| `sex` | Sex | ข้อความ | เพศของศิลปิน ได้แก่ Male (390), Female (88) และ Mixed (22 ใช้กับวงที่มีสมาชิกหลายเพศ) | 0 |
-| `country` | Country of Origin | ข้อความ | ประเทศต้นกำเนิดของศิลปิน มี 43 ประเทศ มากที่สุดคือ United States (265) รองลงมาคือ United Kingdom (55) | 0 |
-| `language` | Primary Language | ข้อความ | ภาษาหลักของเพลง มี 11 ภาษา ได้แก่ English (340), Spanish (105), Portuguese (15), Korean (11), Hindi (11), German (7), French (4), Italian (3), Tamil (2), Urdu (1) และ Punjabi (1) | 0 |
-| `genre` | Primary Genre | ข้อความ | แนวเพลงหลัก มี 23 แนว มากที่สุดคือ Hip-Hop (115), Pop (102), Rock (60), Reggaeton (43), R&B (31) และ Latin (30) | 0 |
-| `artist_type` | Artist Type | ข้อความ | ประเภทศิลปิน ได้แก่ Solo (373) และ Group (127) | 0 |
-| `debut_year` | Debut Year | ตัวเลข | ปีที่เดบิวต์ (ค.ศ.) ตั้งแต่ 1939 ถึง 2023 | 0 |
-| `total_streams_m` | Total Streams (in millions) | ตัวเลข | ยอดสตรีมสะสมทั้งหมด หน่วยล้านครั้ง ตั้งแต่ 6,972.0 ถึง 137,492.1 เป็นตัวแปรหลักสำหรับการวิเคราะห์ | 0 |
-| `lead_streams_m` | Lead Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินเป็นศิลปินหลัก หน่วยล้านครั้ง | 0 |
-| `feature_streams_m` | Feature Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินร่วมร้อง (featured) หน่วยล้านครั้ง | 0 |
-| `solo_streams_m` | Solo Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินร้องเพียงลำพัง หน่วยล้านครั้ง | 0 |
-| `solo_pct` | % of Solo Streams | ตัวเลข | สัดส่วนสตรีมเพลงเดี่ยวต่อยอดรวม หน่วยเป็นเปอร์เซ็นต์ (0-100) | 0 |
-| `collab_streams_m` | Collaborative Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ร่วมงานกับศิลปินอื่น หน่วยล้านครั้ง | 0 |
-| `collab_pct` | % of Collaborative Streams | ตัวเลข | สัดส่วนสตรีมเพลงร่วมงานต่อยอดรวม หน่วยเป็นเปอร์เซ็นต์ (0-100) | 0 |
-| `years_since_debut` | (คำนวณใหม่) | ตัวเลข | จำนวนปีนับจากปีเดบิวต์ถึงปี 2026 (`2026 - debut_year`) ตั้งแต่ 3 ถึง 87 | 0 |
-| `lead_feature_mismatch` | (คำนวณใหม่) | บูลีน | `True` เมื่อ `lead + feature` ต่างจาก `total` เกิน 1 ล้านครั้ง (397 แถว) | 0 |
+| คอลัมน์ | ชื่อคอลัมน์เดิม | ชนิดข้อมูล | คำอธิบาย / ค่าที่เป็นไปได้ |
+| --- | --- | --- | --- |
+| `artist_name` | Artist Name | ข้อความ | ชื่อศิลปิน ไม่ซ้ำกันทั้ง 500 แถว |
+| `sex` | Sex | ข้อความ | เพศของศิลปิน ได้แก่ Male (390), Female (88) และ Mixed (22 ใช้กับวงที่มีสมาชิกหลายเพศ) |
+| `country` | Country of Origin | ข้อความ | ประเทศต้นกำเนิดของศิลปิน มี 43 ประเทศ มากที่สุดคือ United States (265) รองลงมาคือ United Kingdom (55) |
+| `language` | Primary Language | ข้อความ | ภาษาหลักของเพลง มี 11 ภาษา ได้แก่ English (340), Spanish (105), Portuguese (15), Korean (11), Hindi (11), German (7), French (4), Italian (3), Tamil (2), Urdu (1) และ Punjabi (1) |
+| `genre` | Primary Genre | ข้อความ | แนวเพลงหลัก มี 23 แนว มากที่สุดคือ Hip-Hop (115), Pop (102), Rock (60), Reggaeton (43), R&B (31) และ Latin (30) |
+| `artist_type` | Artist Type | ข้อความ | ประเภทศิลปิน ได้แก่ Solo (373) และ Group (127) |
+| `debut_year` | Debut Year | ตัวเลข | ปีที่เดบิวต์ (ค.ศ.) ตั้งแต่ 1939 ถึง 2023 |
+| `total_streams_m` | Total Streams (in millions) | ตัวเลข | ยอดสตรีมสะสมทั้งหมด หน่วยล้านครั้ง ตั้งแต่ 6,972.0 ถึง 137,492.1 เป็นตัวแปรหลักสำหรับการวิเคราะห์ |
+| `lead_streams_m` | Lead Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินเป็นศิลปินหลัก หน่วยล้านครั้ง |
+| `feature_streams_m` | Feature Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินร่วมร้อง (featured) หน่วยล้านครั้ง |
+| `solo_streams_m` | Solo Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินร้องเพียงลำพัง หน่วยล้านครั้ง |
+| `solo_pct` | % of Solo Streams | ตัวเลข | สัดส่วนสตรีมเพลงเดี่ยวต่อยอดรวม หน่วยเป็นเปอร์เซ็นต์ (0-100) |
+| `collab_streams_m` | Collaborative Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ร่วมงานกับศิลปินอื่น หน่วยล้านครั้ง |
+| `collab_pct` | % of Collaborative Streams | ตัวเลข | สัดส่วนสตรีมเพลงร่วมงานต่อยอดรวม หน่วยเป็นเปอร์เซ็นต์ (0-100) |
+| `years_since_debut` | (คำนวณใหม่) | ตัวเลข | จำนวนปีนับจากปีเดบิวต์ถึงปี 2026 (`2026 - debut_year`) ตั้งแต่ 3 ถึง 87 |
+| `lead_feature_mismatch` | (คำนวณใหม่) | บูลีน | `True` เมื่อ `lead + feature` ต่างจาก `total` เกิน 1 ล้านครั้ง (397 แถว) |
 
 **หมายเหตุเกี่ยวกับคุณภาพข้อมูล**
 - `solo_streams_m + collab_streams_m` เท่ากับ `total_streams_m` ทุกแถว และ `solo_pct + collab_pct` เท่ากับ 100 ทุกแถว

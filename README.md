@@ -1,54 +1,62 @@
 # คำอธิบายข้อมูล (Data Description)
 
-โฟลเดอร์นี้อธิบายข้อมูลที่ใช้ในโครงงาน **IT Salary Analysis**
+โฟลเดอร์นี้อธิบายข้อมูลที่ใช้ในโครงงาน **Spotify Most Streamed Artists**
 
 ## 1. แหล่งที่มาและสิทธิ์การใช้ข้อมูล
 
 | หัวข้อ | รายละเอียด |
 | --- | --- |
-| ชื่อชุดข้อมูล | IT Salary Survey EU 2020 |
-| แหล่งที่มาเดิม | https://www.kaggle.com/datasets/parulpandey/2020-it-salary-survey-for-eu-region |
-| ประเภทข้อมูล | ข้อมูลแบบสำรวจที่ผู้ตอบรายงานเอง (self-reported) 1 แถวต่อผู้ตอบ 1 คน |
+| ชื่อชุดข้อมูล | Most Streamed Artists on Spotify (17_07_2026) V1.1 |
+| ไฟล์ต้นฉบับ | `Most Streamed Artists on Spotify (17_07_2026) V1.1.xlsx` (ไฟล์ Excel ที่ผู้จัดทำโครงงานรวบรวมเอง) |
+| ประเภทข้อมูล | ข้อมูลสรุปยอดสตรีมสะสมของศิลปิน 1 แถวต่อศิลปิน 1 คน หน่วยเป็นล้านครั้ง |
+| วันที่ของข้อมูล | 17 กรกฎาคม 2026 (ตามชื่อไฟล์) |
+
+> **หมายเหตุ:** ยังไม่ได้ระบุแหล่งที่มาของตัวเลขสตรีม (เช่น Spotify, Kworb) กรุณาเติมในตารางด้านบนตามที่ใช้จริง
 
 ## 2. ไฟล์ในโฟลเดอร์นี้
 
 | ตำแหน่งไฟล์ | คำอธิบาย |
 | --- | --- |
-| `data/raw/it_salary.csv` | ไฟล์ดิบตามที่ดาวน์โหลดมา **ห้ามแก้ไขด้วยมือ** มี 1,253 แถว 23 คอลัมน์ (รวมคอลัมน์ Timestamp ในไฟล์ที่ตรวจ) |
-| `data/processed/salary_clean.csv` | ข้อมูลที่ล้างแล้ว 1,186 แถว 25 คอลัมน์ **สร้างจาก** `code/01_clean_data.py`  |
+| `data/raw/Most Streamed Artists on Spotify (17_07_2026) V1.1.xlsx` | ไฟล์ดิบ **ห้ามแก้ไขด้วยมือ** มี 500 แถว 14 คอลัมน์ |
+| `data/processed/spotify_clean.csv` | ข้อมูลที่ล้างแล้ว 500 แถว 16 คอลัมน์ **สร้างจาก** `code/01_clean_data.py` |
 
-วิธีสร้างไฟล์ที่ประมวลผลแล้วขึ้นใหม่: วางไฟล์ดิบที่ `data/raw/it_salary.csv` แล้วรัน python `code/01_clean_data.py`
+วิธีสร้างไฟล์ที่ประมวลผลแล้วขึ้นใหม่: วางไฟล์ดิบไว้ที่ `data/raw/` แล้วรัน `python code/01_clean_data.py "data/raw/Most Streamed Artists on Spotify (17_07_2026) V1.1.xlsx"` (หรือแก้ค่า `INPUT_PATH` ในสคริปต์)
 
+## 3. ขั้นตอนการล้างข้อมูล
 
-## 3. พจนานุกรมข้อมูล (Data Dictionary) ของ `salary_clean.csv`
+1. เปลี่ยนชื่อคอลัมน์เป็น snake_case และตัดคอลัมน์ว่าง
+2. ตัดช่องว่างส่วนเกินในคอลัมน์ข้อความ
+3. แปลงคอลัมน์ตัวเลขให้เป็นชนิดตัวเลข
+4. ลบแถวที่ใช้วิเคราะห์ไม่ได้ ได้แก่ ไม่มีชื่อศิลปิน, ชื่อซ้ำ, ตัวเลขสตรีมขาดหายหรือติดลบ, ยอดรวมเป็น 0, เปอร์เซ็นต์อยู่นอกช่วง 0-100 และปีเดบิวต์ผิดปกติ
+5. ตรวจความสอดคล้องของตัวเลข และสร้างคอลัมน์ใหม่ `years_since_debut` กับ `lead_feature_mismatch`
 
-ข้อมูลหลังจากทำความสะอาดแล้วมีทั้งหมด 1,186 แถว ตารางต่อไปนี้แสดงชื่อคอลัมน์ ชนิดข้อมูล คำอธิบาย และจำนวนค่าว่างของแต่ละคอลัมน์
+ผลการรัน: ไม่มีแถวใดถูกลบ จึงเหลือ **500 แถว** เท่าเดิม และไม่มีค่าว่างในทุกคอลัมน์
+
+## 4. พจนานุกรมข้อมูล (Data Dictionary) ของ `spotify_clean.csv`
 
 | คอลัมน์ | ชื่อคอลัมน์เดิม | ชนิดข้อมูล | คำอธิบาย / ค่าที่เป็นไปได้ | ค่าว่าง |
 | --- | --- | --- | --- | ---: |
-| `age` | Age | ตัวเลข | อายุของผู้ตอบแบบสอบถาม หน่วยเป็นปี | 0 |
-| `gender` | Gender | ข้อความ | เพศของผู้ตอบแบบสอบถาม ได้แก่ Male, Female และ Diverse (กลุ่ม Diverse มี 2 รายการ) | 3 |
-| `city` | City | ข้อความ | เมืองที่ทำงาน ได้แก่ Berlin, Munich, Frankfurt และ Other | 0 |
-| `position` | Position | ข้อความ | ชื่อตำแหน่งงานที่ผู้ตอบแบบสอบถามกรอกด้วยตนเอง มีทั้งหมด 135 รูปแบบ | 2 |
-| `exp_total_years` | Total years of experience | ตัวเลข | จำนวนปีของประสบการณ์ทำงานทั้งหมด | 0 |
-| `exp_germany_years` | Years of experience in Germany | ตัวเลข | จำนวนปีของประสบการณ์ทำงานในประเทศเยอรมนี | 44 |
-| `seniority` | Seniority level | ข้อความ | ระดับตำแหน่งงาน ได้แก่ Junior, Middle, Senior, Lead, Head และ Other | 0 |
-| `main_tech` | Your main technology / programming language | ข้อความ | เทคโนโลยีหรือภาษาโปรแกรมหลักที่ใช้งาน กรอกด้วยตนเองและอาจมีรูปแบบการสะกดต่างกัน เช่น Python และ python | 109 |
-| `other_tech` | Other technologies/programming languages you use often | ข้อความ | เทคโนโลยีหรือภาษาโปรแกรมอื่น ๆ ที่ใช้งานเป็นประจำ โดยอาจมีหลายรายการในหนึ่งช่อง | 141 |
-| `salary_eur` | Yearly brutto salary (without bonus and stocks) in EUR | ตัวเลข | เงินเดือนรวมก่อนหักภาษีต่อปี ไม่รวมโบนัสและหุ้น หน่วยเป็นยูโร เป็นตัวแปรตามหลักสำหรับการวิเคราะห์ | 0 |
-| `bonus_eur` | Yearly bonus + stocks in EUR | ตัวเลข | มูลค่าโบนัสและหุ้นที่ได้รับต่อปี หน่วยเป็นยูโร | 396 |
-| `salary_prev_year_eur` | Annual brutto salary ... one year ago (only if staying in the same country) | ตัวเลข | เงินเดือนรวมก่อนหักภาษีต่อปีของปีก่อนหน้า สำหรับผู้ที่ยังทำงานอยู่ในประเทศเดิม หน่วยเป็นยูโร | 333 |
-| `bonus_prev_year_eur` | Annual bonus+stocks one year ago (only if staying in the same country) | ตัวเลข | มูลค่าโบนัสและหุ้นที่ได้รับในปีก่อนหน้า สำหรับผู้ที่ยังทำงานอยู่ในประเทศเดิม หน่วยเป็นยูโร | 590 |
-| `vacation_days` | Number of vacation days | ตัวเลข | จำนวนวันลาพักร้อนต่อปี | 66 |
-| `employment_status` | Employment status | ข้อความ | สถานะการทำงาน ได้แก่ Full-time employee, Self-employed (freelancer), Part-time employee, Founder, Working student และ Other | 11 |
-| `contract_duration` | Contract duration | ข้อความ | ประเภทสัญญาจ้าง ได้แก่ Unlimited contract (สัญญาไม่มีกำหนดระยะเวลา) และ Temporary contract (สัญญาชั่วคราว) | 22 |
-| `work_language` | Main language at work | ข้อความ | ภาษาหลักที่ใช้ในการทำงาน ได้แก่ English, German, Russian และ Other | 10 |
-| `company_size` | Company size | ข้อความ | ขนาดบริษัทตามจำนวนพนักงาน ได้แก่ up to 10, 11-50, 51-100, 101-1000 และ 1000+ | 8 |
-| `company_type` | Company type | ข้อความ | ประเภทบริษัท ได้แก่ Product, Startup, Consulting / Agency และ Other | 15 |
+| `artist_name` | Artist Name | ข้อความ | ชื่อศิลปิน ไม่ซ้ำกันทั้ง 500 แถว | 0 |
+| `sex` | Sex | ข้อความ | เพศของศิลปิน ได้แก่ Male (390), Female (88) และ Mixed (22 ใช้กับวงที่มีสมาชิกหลายเพศ) | 0 |
+| `country` | Country of Origin | ข้อความ | ประเทศต้นกำเนิดของศิลปิน มี 43 ประเทศ มากที่สุดคือ United States (265) รองลงมาคือ United Kingdom (55) | 0 |
+| `language` | Primary Language | ข้อความ | ภาษาหลักของเพลง มี 11 ภาษา ได้แก่ English (340), Spanish (105), Portuguese (15), Korean (11), Hindi (11), German (7), French (4), Italian (3), Tamil (2), Urdu (1) และ Punjabi (1) | 0 |
+| `genre` | Primary Genre | ข้อความ | แนวเพลงหลัก มี 23 แนว มากที่สุดคือ Hip-Hop (115), Pop (102), Rock (60), Reggaeton (43), R&B (31) และ Latin (30) | 0 |
+| `artist_type` | Artist Type | ข้อความ | ประเภทศิลปิน ได้แก่ Solo (373) และ Group (127) | 0 |
+| `debut_year` | Debut Year | ตัวเลข | ปีที่เดบิวต์ (ค.ศ.) ตั้งแต่ 1939 ถึง 2023 | 0 |
+| `total_streams_m` | Total Streams (in millions) | ตัวเลข | ยอดสตรีมสะสมทั้งหมด หน่วยล้านครั้ง ตั้งแต่ 6,972.0 ถึง 137,492.1 เป็นตัวแปรหลักสำหรับการวิเคราะห์ | 0 |
+| `lead_streams_m` | Lead Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินเป็นศิลปินหลัก หน่วยล้านครั้ง | 0 |
+| `feature_streams_m` | Feature Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินร่วมร้อง (featured) หน่วยล้านครั้ง | 0 |
+| `solo_streams_m` | Solo Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ศิลปินร้องเพียงลำพัง หน่วยล้านครั้ง | 0 |
+| `solo_pct` | % of Solo Streams | ตัวเลข | สัดส่วนสตรีมเพลงเดี่ยวต่อยอดรวม หน่วยเป็นเปอร์เซ็นต์ (0-100) | 0 |
+| `collab_streams_m` | Collaborative Streams (in millions) | ตัวเลข | ยอดสตรีมจากเพลงที่ร่วมงานกับศิลปินอื่น หน่วยล้านครั้ง | 0 |
+| `collab_pct` | % of Collaborative Streams | ตัวเลข | สัดส่วนสตรีมเพลงร่วมงานต่อยอดรวม หน่วยเป็นเปอร์เซ็นต์ (0-100) | 0 |
+| `years_since_debut` | (คำนวณใหม่) | ตัวเลข | จำนวนปีนับจากปีเดบิวต์ถึงปี 2026 (`2026 - debut_year`) ตั้งแต่ 3 ถึง 87 | 0 |
+| `lead_feature_mismatch` | (คำนวณใหม่) | บูลีน | `True` เมื่อ `lead + feature` ต่างจาก `total` เกิน 1 ล้านครั้ง (397 แถว) | 0 |
 
-**หมายเหตุ**
-- จำนวนค่าว่าง (Missing Values) นับจากข้อมูลหลังทำความสะอาดแล้ว จำนวน 1,186 แถว
+**หมายเหตุเกี่ยวกับคุณภาพข้อมูล**
+- `solo_streams_m + collab_streams_m` เท่ากับ `total_streams_m` ทุกแถว และ `solo_pct + collab_pct` เท่ากับ 100 ทุกแถว
+- `lead_streams_m + feature_streams_m` **ไม่เท่ากับ** `total_streams_m` ใน 397 แถว (ส่วนต่างสูงสุดประมาณ 89 ล้านครั้ง) และมี 38 แถวที่ `lead_streams_m` มากกว่า `total_streams_m` เล็กน้อย จึงไม่ควรนำสองคอลัมน์นี้มารวมกันแทนยอดรวม ควรใช้ `solo` กับ `collab` แทน
+- มีศิลปินที่ `collab_streams_m = 0` จำนวน 10 ราย และ `solo_streams_m = 0` จำนวน 7 ราย
+- `sex` ของวงดนตรีใช้ค่า Mixed ไม่ใช่เพศของศิลปินรายบุคคล
 
-
-
-หน่วยของจำนวนเงินทั้งหมดคือยูโร (EUR) และเป็นเงินรวมก่อนหักภาษี (brutto)
+หน่วยของยอดสตรีมทั้งหมดคือ **ล้านครั้ง** และปีทั้งหมดเป็นปี ค.ศ.
